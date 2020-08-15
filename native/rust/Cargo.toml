@@ -1,0 +1,9 @@
+[workspace]
+members = [
+    "lib",
+    "android",
+    "ios"
+]
+
+[profile.release]
+debug = false
