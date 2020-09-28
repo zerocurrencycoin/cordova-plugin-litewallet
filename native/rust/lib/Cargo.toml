@@ -8,8 +8,17 @@ edition = "2018"
 
 [dependencies]
 jni = { version = "0.10.2", default-features = false }
-zecwalletlitelib = { git="https://github.com/zerocurrencycoin/zerowallet-light-cli", default-features=false, rev="6d61d9bddcf950d698a6655a6a095e36aceeaeab" }
+zecwalletlitelib = { git="https://github.com/zerocurrencycoin/zerowallet-light-cli", default-features=false, rev="096dfcf780e1cefc4c6661dcd133d7d307bb1c40" }
 lazy_static = "1.4.0"
 android_logger = "0.8.6"
 log = "0.4.8"
 base64 = "0.11.0"
+
+serde = "1.0"
+serde_json = "1.0"
+serde_derive = "1.0"
+hex = "0.3"
+hex-serde = "0.1"
+
+tiny-bip39 = "0.6.2"
+rand = "0.7.2"

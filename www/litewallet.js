@@ -1,17 +1,16 @@
 /*global cordova, module*/
 
 module.exports = {
-    exists: function (successCallback, errorCallback) {
-      args = []
-        cordova.exec(successCallback, errorCallback, "LiteWallet", "exists", args);
+    exists: function (args, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "LiteWallet", "exists", [args]);
     },
 
     initalize: function (args, successCallback, errorCallback) {
-        cordova.exec(successCallback, errorCallback, "LiteWallet", "initalize", [args]);
+        cordova.exec(successCallback, errorCallback, "LiteWallet", "initalize", args);
     },
 
     newWallet: function (args, successCallback, errorCallback) {
-        cordova.exec(successCallback, errorCallback, "LiteWallet", "newWallet", [args]);
+        cordova.exec(successCallback, errorCallback, "LiteWallet", "newWallet", args);
     },
 
     restoreWallet: function (args, successCallback, errorCallback) {
@@ -31,6 +30,11 @@ module.exports = {
     rescan: function (successCallback, errorCallback) {
       args = []
         cordova.exec(successCallback, errorCallback, "LiteWallet", "rescan", args);
+    },
+
+    clear: function (successCallback, errorCallback) {
+      args = []
+        cordova.exec(successCallback, errorCallback, "LiteWallet", "clear", args);
     },
 
     info: function (successCallback, errorCallback) {
@@ -53,7 +57,7 @@ module.exports = {
         cordova.exec(successCallback, errorCallback, "LiteWallet", "notes", args);
     },
 
-    privateKey: function (arg, successCallback, errorCallback) {
+    privateKey: function (args, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "LiteWallet", "privateKey", [args]);
     },
 
@@ -100,8 +104,20 @@ module.exports = {
         cordova.exec(successCallback, errorCallback, "LiteWallet", "unlock", args);
     },
 
-    save: function (successCallback, errorCallback) {
-      args = []
-        cordova.exec(successCallback, errorCallback, "LiteWallet", "save", args);
+    save: function (args, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "LiteWallet", "save", [args]);
+    },
+
+    send: function (args, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "LiteWallet", "send", [args]);
+    },
+
+    getSeedPhrase: function (successCallback, errorCallback) {
+        args = []
+        cordova.exec(successCallback, errorCallback, "LiteWallet", "getseedphrase", args);
+    },
+
+    checkSeedPhrase: function (args, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "LiteWallet", "checkseedphrase", [args]);
     },
 };

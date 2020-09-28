@@ -32,22 +32,24 @@ public class LiteWalletJni
 {
 
     private static native String initlogging();
-    private static native String initnew(final String serveruri, final String saplingOutputb64, final String saplingSpendb64);
-    private static native String initfromseed(final String serveruri, final String seed, final String birthday, final String saplingOutputb64, final String saplingSpendb64);
-    private static native String initfromb64(final String serveruri, final String datab64, final String saplingOutputb64, final String saplingSpendb64);
+    private static native String initnew(final String serveruri, final String params, final String saplingOutputb64, final String saplingSpendb64);
+    private static native String initfromseed(final String serveruri, final String params, final String seed, final String birthday, final String saplingOutputb64, final String saplingSpendb64);
+    private static native String initfromb64(final String serveruri, final String params, final String datab64, final String saplingOutputb64, final String saplingSpendb64);
     private static native String save();
 
     public static native String execute(final String cmd, final String args);
+    public static native String getseedphrase();
+    public static native String checkseedphrase(final String input);
 
     static {
         System.loadLibrary("litewallet-jni");
     }
 
-    public static String initalize(final String serveruri, final String saplingOutputb64, final String saplingSpendb64, final Context context) {
+    public static String initalize(final String coin, final String serveruri, final String params, final String saplingOutputb64, final String saplingSpendb64, final Context context) {
       initlogging();
       String walletSeed = "Error: Wallet file not found!!!";
 
-      File walletFile = new File(context.getFilesDir(),"wallet.dat");
+      File walletFile = new File(context.getFilesDir(),coin.concat("-wallet.dat"));
       if (walletFile.exists()) {
         try {
           InputStream walletStream = new FileInputStream(walletFile);
@@ -55,7 +57,7 @@ public class LiteWalletJni
           walletStream.read(wallet);
           walletStream.close();
           final String datab64 = Base64.encodeToString(wallet, Base64.NO_WRAP);
-          walletSeed = initfromb64(serveruri, datab64, saplingOutputb64, saplingSpendb64 );
+          walletSeed = initfromb64(serveruri, params, datab64, saplingOutputb64, saplingSpendb64 );
           }
           catch(IOException e) {
               e.printStackTrace();
@@ -65,24 +67,24 @@ public class LiteWalletJni
       return walletSeed;
     }
 
-    public static String walletNew(final String serveruri, final String saplingOutputb64, final String saplingSpendb64, final Context context) {
+    public static String walletNew(final String serveruri, final String params, final String saplingOutputb64, final String saplingSpendb64, final Context context) {
         String walletSeed = "";
-        walletSeed = initnew(serveruri, saplingOutputb64, saplingSpendb64); // Thread-safe.
+        walletSeed = initnew(serveruri, params, saplingOutputb64, saplingSpendb64); // Thread-safe.
         return walletSeed;
     }
 
-    public static String walletRestore(final String serveruri, final String seed, final String birthday, final String saplingOutputb64, final String saplingSpendb64, final Context context) {
+    public static String walletRestore(final String serveruri, final String params, final String seed, final String birthday, final String saplingOutputb64, final String saplingSpendb64, final Context context) {
         String walletSeed = "";
-        walletSeed = initfromseed(serveruri, seed, birthday, saplingOutputb64, saplingSpendb64); // Thread-safe.
+        walletSeed = initfromseed(serveruri, params, seed, birthday, saplingOutputb64, saplingSpendb64); // Thread-safe.
         return walletSeed;
     }
 
 
-    public static boolean walletSave(Context context) {
+    public static boolean walletSave(final String coin, Context context) {
         try {
 
             final String wallet = save();
-            File file = new File(context.getFilesDir(),"wallet.dat");
+            File file = new File(context.getFilesDir(), coin.concat("-wallet.dat"));
             if (file.exists()) {
                 FileChannel channel = new RandomAccessFile(file, "rw").getChannel();
                 FileLock lock;
@@ -109,8 +111,8 @@ public class LiteWalletJni
         return true;
     }
 
-    public static boolean walletExists(Context context) {
-        File file = new File(context.getFilesDir(),"wallet.dat");
+    public static boolean walletExists(final String coin, Context context) {
+        File file = new File(context.getFilesDir(),coin.concat("-wallet.dat"));
         return file.exists();
     }
 

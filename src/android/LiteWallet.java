@@ -56,6 +56,15 @@ public class LiteWallet extends CordovaPlugin {
 
             return true;
 
+        } else if (action.equals("clear")) {
+            cordova.getThreadPool().execute(new Runnable() {
+                public void run() {
+                    callbackContext.success(LiteWalletJni.execute("clear", "")); // Thread-safe.
+                }
+            });
+
+            return true;
+
         } else if (action.equals("info")) {
             cordova.getThreadPool().execute(new Runnable() {
                 public void run() {
@@ -129,6 +138,16 @@ public class LiteWallet extends CordovaPlugin {
 
             return true;
 
+        } else if (action.equals("send")) {
+            final String arg1 = data.getString(0);
+            cordova.getThreadPool().execute(new Runnable() {
+                public void run() {
+                    callbackContext.success(LiteWalletJni.execute("send", arg1)); // Thread-safe.
+                }
+            });
+
+            return true;
+
         } else if (action.equals("height")) {
             cordova.getThreadPool().execute(new Runnable() {
                 public void run() {
@@ -185,11 +204,13 @@ public class LiteWallet extends CordovaPlugin {
 
             return true;
 
+
+
         } else if (action.equals("save")) {
+            final String arg1 = data.getString(0);
             cordova.getThreadPool().execute(new Runnable() {
                 public void run() {
-
-                    boolean saved = LiteWalletJni.walletSave(context);
+                    boolean saved = LiteWalletJni.walletSave(arg1, context);
                     String jsonText = new String();
                     JSONObject obj = new JSONObject();
                     try {
@@ -206,10 +227,31 @@ public class LiteWallet extends CordovaPlugin {
 
             return true;
 
-        } else if (action.equals("exists")) {
+
+        } else if (action.equals("getseedphrase")) {
             cordova.getThreadPool().execute(new Runnable() {
                 public void run() {
-                    boolean exists = LiteWalletJni.walletExists(context);
+                    callbackContext.success(LiteWalletJni.getseedphrase()); // Thread-safe.
+                }
+            });
+
+            return true;
+
+        } else if (action.equals("checkseedphrase")) {
+            final String arg1 = data.getString(0);
+            cordova.getThreadPool().execute(new Runnable() {
+                public void run() {
+                    callbackContext.success(LiteWalletJni.checkseedphrase(arg1)); // Thread-safe.
+                }
+            });
+
+            return true;
+
+        } else if (action.equals("exists")) {
+            final String arg1 = data.getString(0);
+            cordova.getThreadPool().execute(new Runnable() {
+                public void run() {
+                    boolean exists = LiteWalletJni.walletExists(arg1, context);
                     String jsonText = new String();
                     JSONObject obj = new JSONObject();
                     try {
@@ -228,6 +270,8 @@ public class LiteWallet extends CordovaPlugin {
 
         } else if (action.equals("initalize")) {
             final String arg1 = data.getString(0);
+            final String arg2 = data.getString(1);
+            final String arg3 = data.getString(2);
 
             cordova.getThreadPool().execute(new Runnable() {
                 public void run() {
@@ -241,10 +285,10 @@ public class LiteWallet extends CordovaPlugin {
                       byte[] saplingSpend = IOUtils.toByteArray(saplingSpendFile);
                       saplingSpendFile.close();
 
-                      final String arg2 = Base64.encodeToString(saplingOutput, Base64.NO_WRAP);
-                      final String arg3 = Base64.encodeToString(saplingSpend, Base64.NO_WRAP);
+                      final String arg4 = Base64.encodeToString(saplingOutput, Base64.NO_WRAP);
+                      final String arg5 = Base64.encodeToString(saplingSpend, Base64.NO_WRAP);
 
-                      callbackContext.success(LiteWalletJni.initalize(arg1, arg2, arg3, context));
+                      callbackContext.success(LiteWalletJni.initalize(arg1, arg2, arg3, arg4, arg5, context));
 
                   }
                   catch(IOException e) {
@@ -258,6 +302,7 @@ public class LiteWallet extends CordovaPlugin {
 
         } else if (action.equals("newWallet")) {
             final String arg1 = data.getString(0);
+            final String arg2 = data.getString(1);
 
             cordova.getThreadPool().execute(new Runnable() {
                 public void run() {
@@ -271,10 +316,10 @@ public class LiteWallet extends CordovaPlugin {
                       byte[] saplingSpend = IOUtils.toByteArray(saplingSpendFile);
                       saplingSpendFile.close();
 
-                      final String arg2 = Base64.encodeToString(saplingOutput, Base64.NO_WRAP);
-                      final String arg3 = Base64.encodeToString(saplingSpend, Base64.NO_WRAP);
+                      final String arg3 = Base64.encodeToString(saplingOutput, Base64.NO_WRAP);
+                      final String arg4 = Base64.encodeToString(saplingSpend, Base64.NO_WRAP);
 
-                      callbackContext.success(LiteWalletJni.walletNew(arg1, arg2, arg3, context));
+                      callbackContext.success(LiteWalletJni.walletNew(arg1, arg2, arg3, arg4, context));
 
                   }
                   catch(IOException e) {
@@ -290,6 +335,7 @@ public class LiteWallet extends CordovaPlugin {
             final String arg1 = data.getString(0);
             final String arg2 = data.getString(1);
             final String arg3 = data.getString(2);
+            final String arg4 = data.getString(3);
 
             cordova.getThreadPool().execute(new Runnable() {
                 public void run() {
@@ -302,9 +348,9 @@ public class LiteWallet extends CordovaPlugin {
                       byte[] saplingSpend = IOUtils.toByteArray(saplingSpendFile);
                       saplingSpendFile.close();
 
-                      final String arg4 = Base64.encodeToString(saplingOutput, Base64.NO_WRAP);
-                      final String arg5 = Base64.encodeToString(saplingSpend, Base64.NO_WRAP);
-                      callbackContext.success(LiteWalletJni.walletRestore(arg1, arg2, arg3, arg4, arg5, context)); // Thread-safe.
+                      final String arg5 = Base64.encodeToString(saplingOutput, Base64.NO_WRAP);
+                      final String arg6 = Base64.encodeToString(saplingSpend, Base64.NO_WRAP);
+                      callbackContext.success(LiteWalletJni.walletRestore(arg1, arg2, arg3, arg4, arg5, arg6, context)); // Thread-safe.
                     }
                     catch(IOException e) {
                       e.printStackTrace();
