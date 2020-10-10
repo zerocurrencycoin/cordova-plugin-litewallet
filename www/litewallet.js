@@ -68,7 +68,7 @@ module.exports = {
 
     newTAddress: function (successCallback, errorCallback) {
       args = []
-        cordova.exec(successCallback, errorCallback, "LiteWallet", "newZAddress", args);
+        cordova.exec(successCallback, errorCallback, "LiteWallet", "newTAddress", args);
     },
 
     seed: function (successCallback, errorCallback) {
