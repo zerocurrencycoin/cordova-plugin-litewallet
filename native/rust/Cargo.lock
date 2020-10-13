@@ -1804,7 +1804,7 @@ dependencies = [
  "serde_derive 1.0.110 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde_json 1.0.53 (registry+https://github.com/rust-lang/crates.io-index)",
  "tiny-bip39 0.6.2 (registry+https://github.com/rust-lang/crates.io-index)",
- "zecwalletlitelib 0.1.0 (git+https://github.com/zerocurrencycoin/zerowallet-light-cli?rev=ca32c63ff42fbbb0f00ea0e388475cd519060f13)",
+ "zecwalletlitelib 0.1.0 (git+https://github.com/zerocurrencycoin/zerowallet-light-cli?rev=89fe8d36cc34e141d50ae1e1d123af90db6a6cac)",
 ]
 
 [[package]]
@@ -2802,7 +2802,7 @@ dependencies = [
 [[package]]
 name = "zecwalletlitelib"
 version = "0.1.0"
-source = "git+https://github.com/zerocurrencycoin/zerowallet-light-cli?rev=ca32c63ff42fbbb0f00ea0e388475cd519060f13#ca32c63ff42fbbb0f00ea0e388475cd519060f13"
+source = "git+https://github.com/zerocurrencycoin/zerowallet-light-cli?rev=89fe8d36cc34e141d50ae1e1d123af90db6a6cac#89fe8d36cc34e141d50ae1e1d123af90db6a6cac"
 dependencies = [
  "base58 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "bellman 0.6.0 (git+https://github.com/zerocurrencycoin/librustzcash.git?rev=2981c4d2860f7cd73282fed885daac0323ff0280)",
@@ -3162,4 +3162,4 @@ dependencies = [
 "checksum zcash_client_backend 0.2.0 (git+https://github.com/zerocurrencycoin/librustzcash.git?rev=2981c4d2860f7cd73282fed885daac0323ff0280)" = "<none>"
 "checksum zcash_primitives 0.2.0 (git+https://github.com/zerocurrencycoin/librustzcash.git?rev=2981c4d2860f7cd73282fed885daac0323ff0280)" = "<none>"
 "checksum zcash_proofs 0.2.0 (git+https://github.com/zerocurrencycoin/librustzcash.git?rev=2981c4d2860f7cd73282fed885daac0323ff0280)" = "<none>"
-"checksum zecwalletlitelib 0.1.0 (git+https://github.com/zerocurrencycoin/zerowallet-light-cli?rev=ca32c63ff42fbbb0f00ea0e388475cd519060f13)" = "<none>"
+"checksum zecwalletlitelib 0.1.0 (git+https://github.com/zerocurrencycoin/zerowallet-light-cli?rev=89fe8d36cc34e141d50ae1e1d123af90db6a6cac)" = "<none>"
